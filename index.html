@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Mi Tarjeta de Contacto Digital</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; font-family: 'Segoe UI', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif; background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%); display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .container { width: 100%; max-width: 420px; }
+        .wallet-card { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 18px; padding: 32px 28px; color: white; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; animation: slideUp 0.6s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .card-content { position: relative; z-index: 1; }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px; padding-bottom: 20px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
+        .logo-section { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-text { font-size: 18px; font-weight: 700; color: #d4af37; margin-bottom: 4px; }
+        .company-name { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); font-weight: 500; }
+        .card-type { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(212, 175, 55, 0.7); font-weight: 600; background: rgba(212, 175, 55, 0.1); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.2); }
+        .card-main { margin-bottom: 32px; }
+        .name { font-size: 26px; font-weight: 700; margin-bottom: 6px; color: #ffffff; }
+        .title { font-size: 13px; color: rgba(212, 175, 55, 0.9); font-weight: 500; letter-spacing: 0.5px; }
+        .company { font-size: 11px; color: rgba(255, 255, 255, 0.6); margin-top: 4px; }
+        .qr-section { text-align: center; margin-bottom: 28px; padding: 20px; background: rgba(255, 255, 255, 0.98); border-radius: 14px; min-height: 210px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .qr-image { width: 160px; height: 160px; margin: 0 auto 12px; }
+        .qr-image img { width: 100%; height: 100%; object-fit: contain; }
+        .qr-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(0, 0, 0, 0.5); font-weight: 600; }
+        .card-details { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+        .detail-item { background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 11px; padding: 14px; }
+        .detail-label { font-size: 9px; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(212, 175, 55, 0.8); margin-bottom: 6px; font-weight: 600; }
+        .detail-value { font-size: 12px; font-weight: 600; color: #ffffff; }
+        .detail-value a { color: rgba(212, 175, 55, 0.9); text-decoration: none; }
+        .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent); margin: 24px 0; }
+        .action-buttons { display: flex; gap: 12px; margin-top: 24px; }
+        .btn { flex: 1; padding: 14px; border: none; border-radius: 11px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-primary { background: linear-gradient(135deg, #d4af37 0%, #f0d570 100%); color: #1a1a1a; box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2); }
+        .btn-primary:active { transform: scale(0.96); }
+        .btn-secondary { background: rgba(212, 175, 55, 0.15); color: #d4af37; border: 1px solid rgba(212, 175, 55, 0.3); }
+        .btn-secondary:active { background: rgba(212, 175, 55, 0.25); }
+        .social-icons { display: flex; gap: 12px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+        .social-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(212, 175, 55, 0.1); display: flex; align-items: center; justify-content: center; font-size: 16px; text-decoration: none; border: 1px solid rgba(212, 175, 55, 0.2); color: rgba(212, 175, 55, 0.9); }
+        .social-icon:active { background: rgba(212, 175, 55, 0.2); transform: scale(0.92); }
+        .card-footer { display: flex; justify-content: space-between; padding-top: 16px; border-top: 1px solid rgba(212, 175, 55, 0.1); font-size: 10px; color: rgba(255, 255, 255, 0.5); }
+        .bottom-note { text-align: center; margin-top: 32px; font-size: 11px; color: rgba(255, 255, 255, 0.4); }
+        .loading { text-align: center; color: rgba(255, 255, 255, 0.5); padding: 40px; }
+        .error { color: #ff6b6b; text-align: center; padding: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="loading" class="loading">Cargando tarjeta...</div>
+        <div id="card" style="display: none;">
+            <div class="wallet-card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="logo-section">
+                            <div class="logo-text" id="empresa-siglas">TU</div>
+                            <div class="company-name" id="empresa-nombre">Empresa</div>
+                        </div>
+                        <div class="card-type">PASS</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="card-main">
+                        <h1 class="name" id="nombre-display">Tu Nombre</h1>
+                        <p class="title" id="puesto-display">Tu Puesto</p>
+                        <p class="company" id="empresa-display">Tu Empresa</p>
+                    </div>
+                    <div class="qr-section">
+                        <div class="qr-image" id="qr-image"></div>
+                        <div class="qr-label">Escanea para guardar</div>
+                    </div>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Teléfono</div>
+                            <div class="detail-value"><a id="tel-link" href="tel:">+34 000 000 000</a></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Email</div>
+                            <div class="detail-value"><a id="email-link" href="mailto:">email@...</a></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Web</div>
+                            <div class="detail-value"><a id="web-link" href="#" target="_blank">web.com</a></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Ubicación</div>
+                            <div class="detail-value" id="ubicacion-display">Ciudad, País</div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="social-icons" id="social-icons"></div>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="descargarVCard()">⬇️ Guardar</button>
+                        <button class="btn btn-secondary" onclick="compartir()">📤 Compartir</button>
+                    </div>
+                    <div class="card-footer">
+                        <span>© 2024</span>
+                        <span id="empresa-footer">Empresa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let datos = {};
+
+        // Cargar datos desde JSON
+        async function cargarDatos() {
+            try {
+                const response = await fetch('datos.json');
+                if (!response.ok) throw new Error('No se encontró datos.json');
+                datos = await response.json();
+                
+                // Validar que los datos tengan lo mínimo
+                if (!datos.nombre || !datos.email || !datos.telefonoCompleto) {
+                    throw new Error('Faltan datos esenciales en datos.json');
+                }
+                
+                mostrarTarjeta();
+                generarQR();
+            } catch (error) {
+                console.error('Error cargando datos:', error);
+                document.getElementById('loading').innerHTML = `
+                    <div class="error">
+                        ❌ Error: No se encontró o cargar datos.json<br>
+                        <small>Asegúrate de que datos.json está en la misma carpeta</small>
+                    </div>
+                `;
+            }
+        }
+
+        // Mostrar datos en la tarjeta
+        function mostrarTarjeta() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('card').style.display = 'block';
+
+            // Encabezado
+            const siglas = datos.nombre.split(' ').map(p => p[0]).join('').substring(0, 2).toUpperCase();
+            document.getElementById('empresa-siglas').textContent = siglas;
+            document.getElementById('empresa-nombre').textContent = datos.empresa || 'Empresa';
+
+            // Información principal
+            document.getElementById('nombre-display').textContent = datos.nombre;
+            document.getElementById('puesto-display').textContent = datos.puesto || 'Profesional';
+            document.getElementById('empresa-display').textContent = datos.empresa || '';
+
+            // Enlaces
+            document.getElementById('tel-link').href = `tel:${datos.telefonoCompleto}`;
+            document.getElementById('tel-link').textContent = datos.telefonoMostrado || datos.telefonoCompleto;
+
+            document.getElementById('email-link').href = `mailto:${datos.email}`;
+            const emailMostrado = datos.email.substring(0, 10) + '...';
+            document.getElementById('email-link').textContent = emailMostrado;
+
+            if (datos.web) {
+                document.getElementById('web-link').href = datos.web;
+                document.getElementById('web-link').textContent = datos.web.replace('https://', '').substring(0, 15);
+            }
+
+            document.getElementById('ubicacion-display').textContent = datos.ubicacion || 'Ubicación';
+
+            // Redes sociales
+            const socialContainer = document.getElementById('social-icons');
+            socialContainer.innerHTML = '';
+            
+            if (datos.redes) {
+                if (datos.redes.linkedin) {
+                    const a = document.createElement('a');
+                    a.href = datos.redes.linkedin;
+                    a.target = '_blank';
+                    a.className = 'social-icon';
+                    a.textContent = 'in';
+                    a.title = 'LinkedIn';
+                    socialContainer.appendChild(a);
+                }
+                if (datos.redes.github) {
+                    const a = document.createElement('a');
+                    a.href = datos.redes.github;
+                    a.target = '_blank';
+                    a.className = 'social-icon';
+                    a.textContent = '⚙️';
+                    a.title = 'GitHub';
+                    socialContainer.appendChild(a);
+                }
+                if (datos.redes.instagram) {
+                    const a = document.createElement('a');
+                    a.href = `https://instagram.com/${datos.redes.instagram.replace('@', '')}`;
+                    a.target = '_blank';
+                    a.className = 'social-icon';
+                    a.textContent = '📷';
+                    a.title = 'Instagram';
+                    socialContainer.appendChild(a);
+                }
+            }
+
+            document.getElementById('empresa-footer').textContent = datos.empresa || 'Empresa';
+        }
+
+        // Generar vCard
+        function generarVCard() {
+            const redes = datos.redes || {};
+            return `BEGIN:VCARD
+VERSION:3.0
+FN:${datos.nombre}
+N:${datos.nombre.split(' ').slice(-1)[0]};${datos.nombre.split(' ')[0]};;;
+TEL;TYPE=CELL:${datos.telefonoCompleto}
+EMAIL;TYPE=INTERNET:${datos.email}
+ORG:${datos.empresa || ''}
+URL;TYPE=WORK:${datos.web || ''}
+${redes.linkedin ? `URL;TYPE=PROFILE:${redes.linkedin}` : ''}
+${redes.github ? `URL;TYPE=PROFILE:${redes.github}` : ''}
+NOTE:${datos.descripcion || 'Profesional'}
+REV:${new Date().toISOString().split('T')[0]}
+END:VCARD`;
+        }
+
+        // Generar QR
+        function generarQR() {
+            const vcard = generarVCard();
+            const url = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(vcard)}`;
+            
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = 'QR Code';
+            img.style.width = '100%';
+            img.style.height = 'auto';
+            
+            const container = document.getElementById('qr-image');
+            container.innerHTML = '';
+            container.appendChild(img);
+        }
+
+        // Descargar vCard
+        function descargarVCard() {
+            const vcard = generarVCard();
+            const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${datos.nombre.replace(/\s/g, '_')}.vcf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        // Compartir
+        function compartir() {
+            if (navigator.share) {
+                navigator.share({
+                    title: datos.nombre,
+                    text: `${datos.puesto} - ${datos.empresa}`,
+                    url: window.location.href
+                }).catch(err => console.log('Error:', err));
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('✓ Enlace copiado');
+                });
+            }
+        }
+
+        // Inicializar
+        window.addEventListener('load', cargarDatos);
+    </script>
+</body>
+</html>

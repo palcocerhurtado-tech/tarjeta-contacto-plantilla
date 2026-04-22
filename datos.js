@@ -16,6 +16,8 @@ var datos = {
   "diseno": {
     "colorPrincipal": "#999B9B",
     "colorFondo": "#28282B",
-    "colorAcento": "#39FF14"
+    "colorAcento": "#39FF14",
+    "estilo": "neon",
+    "borderRadius": 18
   }
 };

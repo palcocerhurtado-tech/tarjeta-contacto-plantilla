@@ -15,7 +15,7 @@ Una **tarjeta de contacto digital profesional** que puedes:
 ✅ **Compartir** - Enlace o código QR  
 ✅ **Guardar en contactos** - Descarga vCard (.vcf)  
 ✅ **Usar como app** - Añade a home screen en iPhone  
-✅ **Personalizar** - Solo edita un archivo JSON  
+✅ **Personalizar** - Solo edita un archivo JS  
 ✅ **Hospedar gratis** - En GitHub Pages  
 ✅ **Ver en cualquier dispositivo** - Responsive 100%
 
@@ -37,16 +37,16 @@ mi-tarjeta-contacto
 
 ### 2️⃣ Edita tus datos
 
-Abre el archivo `datos.json` y cambia:
-```json
-{
+Abre el archivo `datos.js` y cambia los valores entre comillas:
+```js
+var datos = {
   "nombre": "Tu Nombre Completo",
   "email": "tuemail@ejemplo.com",
   "telefonoCompleto": "+34693500740",
   "empresa": "Tu Empresa",
   "puesto": "Tu Puesto",
   "ubicacion": "Tu Ciudad, País"
-}
+};
 ```
 
 ### 3️⃣ Obtén tu enlace
@@ -78,12 +78,12 @@ https://[tuusuario].github.io/[tunombrerepo]/
 
 #### Paso 2: Personaliza tus datos
 
-1. En tu nuevo repo, busca el archivo: **`datos.json`**
+1. En tu nuevo repo, busca el archivo: **`datos.js`**
 2. Haz clic en él
 3. Haz clic en el icono de **edición (lápiz)** ✏️
 4. **Cambia SOLO el texto entre comillas:**
 
-```json
+```js
 "nombre": "TU NOMBRE AQUÍ",
 "email": "tuemail@ejemplo.com",
 "telefonoCompleto": "+34693500740",
@@ -93,12 +93,15 @@ https://[tuusuario].github.io/[tunombrerepo]/
 "ubicacion": "Tu Ciudad, País"
 ```
 
+Todos los campos son opcionales excepto `nombre`. Puedes eliminar los que no necesites y la tarjeta se adapta sola.
+
 **Opcional - Añade tus redes:**
-```json
+```js
 "redes": {
   "linkedin": "https://linkedin.com/in/tuusuario",
   "github": "https://github.com/tuusuario",
-  "instagram": "@tuusuario"
+  "instagram": "@tuusuario",
+  "twitter": "@tuusuario"
 }
 ```
 
@@ -141,7 +144,7 @@ https://[tuusuario].github.io/[tunombrerepo]/
 ```
 tu-repo/
 ├── index.html          ← La tarjeta (no toques)
-├── datos.json         ← TUS DATOS (edita esto)
+├── datos.js            ← TUS DATOS (edita esto)
 └── README.md          ← Este archivo
 ```
 
@@ -149,16 +152,17 @@ tu-repo/
 
 - La página web que ve todo el mundo
 - **NO LA EDITES** (a menos que quieras cambiar el diseño)
-- Carga automáticamente los datos de `datos.json`
+- Carga automáticamente los datos de `datos.js`
 - Genera el QR automáticamente
 - Botones para descargar y compartir
 
-### `datos.json`
+### `datos.js`
 
 - **EDITA ESTE ARCHIVO** con tus datos
-- Formato JSON (estructura de datos)
+- Formato JavaScript simple (igual que JSON pero con `var datos = { ... };` alrededor)
 - Solo texto, sin código
 - Cambios se reflejan automáticamente en la tarjeta
+- Funciona en todos los navegadores, incluyendo **Safari con archivos locales**
 
 ---
 
@@ -166,17 +170,32 @@ tu-repo/
 
 ### Cambiar colores
 
-En `datos.json`, edita la sección `diseno`:
+En `datos.js`, edita la sección `diseno`:
 
-```json
+```js
 "diseno": {
-  "colorPrincipal": "#d4af37",    ← Color dorado
-  "colorFondo": "#1a1a1a",        ← Fondo oscuro
-  "colorAcento": "#764ba2"        ← Color acento
+  "colorPrincipal": "#d4af37",    // Color principal (dorado por defecto)
+  "colorFondo": "#1a1a1a",        // Color de fondo (oscuro por defecto)
+  "colorAcento": "#764ba2"        // Color de acento
 }
 ```
 
-(Nota: Los colores actuales no se aplican en esta versión. Para usarlos, necesitarías editar `index.html`)
+Los colores se aplican automáticamente a toda la tarjeta. Puedes usar cualquier valor hexadecimal (`#rrggbb`). Los campos de `diseno` son opcionales — si los eliminas se usan los colores por defecto.
+
+**Ejemplos de paletas:**
+```js
+// Azul corporativo
+"colorPrincipal": "#1e90ff",
+"colorFondo": "#0d1b2a"
+
+// Verde esmeralda
+"colorPrincipal": "#50c878",
+"colorFondo": "#0f1f0f"
+
+// Rojo carmesí
+"colorPrincipal": "#dc143c",
+"colorFondo": "#1a0a0a"
+```
 
 ### Añadir más información
 
@@ -269,10 +288,10 @@ Sí, completamente gratis:
 - ✅ GitHub Pages hosting (gratis)
 - ✅ Este código (gratis - MIT License)
 
-### "¿Puedo editar datos.json desde el móvil?"
+### "¿Puedo editar datos.js desde el móvil?"
 
 Sí:
-1. En tu repo, busca `datos.json`
+1. En tu repo, busca `datos.js`
 2. Haz clic en él
 3. Haz clic en el lápiz ✏️
 4. Edita
@@ -306,21 +325,25 @@ Sí:
 ```
 1. Verifica que hayas hecho "Commit changes"
 2. Recarga la página del navegador (Ctrl+Shift+R)
-3. Borra el caché: Settings > datos.json > edita > Commit
+3. Borra el caché: Settings > datos.js > edita > Commit
 4. Espera 2 minutos
 ```
 
-### "Aparecen errores en datos.json"
+### "Aparecen errores en datos.js"
 
 ```
 1. Verifica que NO BORRES:
-   - Comillas " "
-   - Comas , 
-   - Llaves { }
+   - La primera línea: var datos = {
+   - La última línea: };
+   - Comillas " " alrededor de cada valor
+   - Comas , al final de cada línea (menos la última de cada bloque)
 
-2. Usa un validador JSON: jsonlint.com
+2. Si no sabes dónde está el error:
+   - Copia todo el contenido de datos.js
+   - Pégalo en: jsonlint.com (quita la primera y última línea)
+   - Te dirá exactamente dónde está el error
 
-3. Copia la estructura original y solo cambia texto
+3. Si tienes dudas, copia la plantilla original y edita solo el texto
 ```
 
 ### "No funciona en mi iPhone"
@@ -341,7 +364,7 @@ Sí:
 
 Puedes actualizar tus datos en cualquier momento:
 
-1. Edita `datos.json`
+1. Edita `datos.js`
 2. Commit
 3. Los cambios aparecen automáticamente en tu tarjeta
 

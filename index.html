@@ -4,47 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Mi Tarjeta de Contacto Digital</title>
+    <title>Tarjeta de Contacto</title>
     <style>
+        :root {
+            --color-principal: #d4af37;
+            --color-principal-claro: #f0d570;
+            --color-fondo: #1a1a1a;
+            --color-fondo-claro: #2d2d2d;
+            --color-fondo-oscuro: #0f0f0f;
+            --color-acento: #764ba2;
+            --principal-rgb: 212, 175, 55;
+            --fondo-rgb: 26, 26, 26;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { width: 100%; height: 100%; font-family: 'Segoe UI', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif; background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%); display: flex; align-items: center; justify-content: center; padding: 20px; }
+        html, body {
+            width: 100%; height: 100%;
+            font-family: 'Segoe UI', Helvetica, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            background: linear-gradient(135deg, var(--color-fondo-oscuro) 0%, var(--color-fondo) 100%);
+            display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
         .container { width: 100%; max-width: 420px; }
-        .wallet-card { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 18px; padding: 32px 28px; color: white; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; animation: slideUp 0.6s ease-out; }
+        .wallet-card {
+            background: linear-gradient(135deg, var(--color-fondo) 0%, var(--color-fondo-claro) 100%);
+            border: 1px solid rgba(var(--principal-rgb), 0.2);
+            border-radius: 18px; padding: 32px 28px; color: white;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative; overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         .card-content { position: relative; z-index: 1; }
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px; padding-bottom: 20px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
+        .card-header {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            margin-bottom: 36px; padding-bottom: 20px;
+            border-bottom: 1px solid rgba(var(--principal-rgb), 0.1);
+        }
         .logo-section { display: flex; flex-direction: column; align-items: flex-start; }
-        .logo-text { font-size: 18px; font-weight: 700; color: #d4af37; margin-bottom: 4px; }
-        .company-name { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); font-weight: 500; }
-        .card-type { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(212, 175, 55, 0.7); font-weight: 600; background: rgba(212, 175, 55, 0.1); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.2); }
+        .logo-text { font-size: 18px; font-weight: 700; color: var(--color-principal); margin-bottom: 4px; }
+        .company-name { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); font-weight: 500; }
+        .card-type {
+            font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+            color: rgba(var(--principal-rgb), 0.7); font-weight: 600;
+            background: rgba(var(--principal-rgb), 0.1); padding: 6px 12px;
+            border-radius: 8px; border: 1px solid rgba(var(--principal-rgb), 0.2);
+        }
         .card-main { margin-bottom: 32px; }
         .name { font-size: 26px; font-weight: 700; margin-bottom: 6px; color: #ffffff; }
-        .title { font-size: 13px; color: rgba(212, 175, 55, 0.9); font-weight: 500; letter-spacing: 0.5px; }
-        .company { font-size: 11px; color: rgba(255, 255, 255, 0.6); margin-top: 4px; }
-        .qr-section { text-align: center; margin-bottom: 28px; padding: 20px; background: rgba(255, 255, 255, 0.98); border-radius: 14px; min-height: 210px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .title { font-size: 13px; color: rgba(var(--principal-rgb), 0.9); font-weight: 500; letter-spacing: 0.5px; }
+        .company { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+        .qr-section {
+            text-align: center; margin-bottom: 28px; padding: 20px;
+            background: rgba(255,255,255,0.98); border-radius: 14px;
+            min-height: 210px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
         .qr-image { width: 160px; height: 160px; margin: 0 auto 12px; }
         .qr-image img { width: 100%; height: 100%; object-fit: contain; }
-        .qr-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(0, 0, 0, 0.5); font-weight: 600; }
+        .qr-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(0,0,0,0.5); font-weight: 600; }
         .card-details { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
-        .detail-item { background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 11px; padding: 14px; }
-        .detail-label { font-size: 9px; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(212, 175, 55, 0.8); margin-bottom: 6px; font-weight: 600; }
+        .detail-item {
+            background: rgba(var(--principal-rgb), 0.08);
+            border: 1px solid rgba(var(--principal-rgb), 0.1);
+            border-radius: 11px; padding: 14px;
+        }
+        .detail-label { font-size: 9px; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(var(--principal-rgb), 0.8); margin-bottom: 6px; font-weight: 600; }
         .detail-value { font-size: 12px; font-weight: 600; color: #ffffff; }
-        .detail-value a { color: rgba(212, 175, 55, 0.9); text-decoration: none; }
-        .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent); margin: 24px 0; }
+        .detail-value a { color: rgba(var(--principal-rgb), 0.9); text-decoration: none; }
+        .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(var(--principal-rgb), 0.2), transparent); margin: 24px 0; }
         .action-buttons { display: flex; gap: 12px; margin-top: 24px; }
         .btn { flex: 1; padding: 14px; border: none; border-radius: 11px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-primary { background: linear-gradient(135deg, #d4af37 0%, #f0d570 100%); color: #1a1a1a; box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2); }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-principal-claro) 100%);
+            color: var(--color-fondo);
+            box-shadow: 0 8px 24px rgba(var(--principal-rgb), 0.2);
+        }
         .btn-primary:active { transform: scale(0.96); }
-        .btn-secondary { background: rgba(212, 175, 55, 0.15); color: #d4af37; border: 1px solid rgba(212, 175, 55, 0.3); }
-        .btn-secondary:active { background: rgba(212, 175, 55, 0.25); }
+        .btn-secondary {
+            background: rgba(var(--principal-rgb), 0.15);
+            color: var(--color-principal);
+            border: 1px solid rgba(var(--principal-rgb), 0.3);
+        }
+        .btn-secondary:active { background: rgba(var(--principal-rgb), 0.25); }
         .social-icons { display: flex; gap: 12px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
-        .social-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(212, 175, 55, 0.1); display: flex; align-items: center; justify-content: center; font-size: 16px; text-decoration: none; border: 1px solid rgba(212, 175, 55, 0.2); color: rgba(212, 175, 55, 0.9); }
-        .social-icon:active { background: rgba(212, 175, 55, 0.2); transform: scale(0.92); }
-        .card-footer { display: flex; justify-content: space-between; padding-top: 16px; border-top: 1px solid rgba(212, 175, 55, 0.1); font-size: 10px; color: rgba(255, 255, 255, 0.5); }
-        .bottom-note { text-align: center; margin-top: 32px; font-size: 11px; color: rgba(255, 255, 255, 0.4); }
-        .loading { text-align: center; color: rgba(255, 255, 255, 0.5); padding: 40px; }
-        .error { color: #ff6b6b; text-align: center; padding: 40px; }
+        .social-icon {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(var(--principal-rgb), 0.1);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; text-decoration: none;
+            border: 1px solid rgba(var(--principal-rgb), 0.2);
+            color: rgba(var(--principal-rgb), 0.9);
+        }
+        .social-icon:active { background: rgba(var(--principal-rgb), 0.2); transform: scale(0.92); }
+        .card-footer {
+            display: flex; justify-content: space-between; padding-top: 16px;
+            border-top: 1px solid rgba(var(--principal-rgb), 0.1);
+            font-size: 10px; color: rgba(255,255,255,0.5);
+        }
+        .bottom-note { text-align: center; margin-top: 32px; font-size: 11px; color: rgba(255,255,255,0.4); }
+        .loading { text-align: center; color: rgba(255,255,255,0.5); padding: 40px; }
+        .error { color: #ff6b6b; text-align: center; padding: 40px; line-height: 1.6; }
+        .error code { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
     </style>
+    <script src="datos.js"></script>
 </head>
 <body>
     <div class="container">
@@ -54,48 +115,31 @@
                 <div class="card-content">
                     <div class="card-header">
                         <div class="logo-section">
-                            <div class="logo-text" id="empresa-siglas">TU</div>
-                            <div class="company-name" id="empresa-nombre">Empresa</div>
+                            <div class="logo-text" id="empresa-siglas"></div>
+                            <div class="company-name" id="empresa-nombre"></div>
                         </div>
                         <div class="card-type">PASS</div>
                     </div>
                     <div class="divider"></div>
                     <div class="card-main">
-                        <h1 class="name" id="nombre-display">Tu Nombre</h1>
-                        <p class="title" id="puesto-display">Tu Puesto</p>
-                        <p class="company" id="empresa-display">Tu Empresa</p>
+                        <h1 class="name" id="nombre-display"></h1>
+                        <p class="title" id="puesto-display"></p>
+                        <p class="company" id="empresa-display"></p>
                     </div>
                     <div class="qr-section">
                         <div class="qr-image" id="qr-image"></div>
                         <div class="qr-label">Escanea para guardar</div>
                     </div>
-                    <div class="card-details">
-                        <div class="detail-item">
-                            <div class="detail-label">Teléfono</div>
-                            <div class="detail-value"><a id="tel-link" href="tel:">+34 000 000 000</a></div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Email</div>
-                            <div class="detail-value"><a id="email-link" href="mailto:">email@...</a></div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Web</div>
-                            <div class="detail-value"><a id="web-link" href="#" target="_blank">web.com</a></div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Ubicación</div>
-                            <div class="detail-value" id="ubicacion-display">Ciudad, País</div>
-                        </div>
-                    </div>
+                    <div class="card-details" id="card-details"></div>
                     <div class="divider"></div>
                     <div class="social-icons" id="social-icons"></div>
                     <div class="action-buttons">
-                        <button class="btn btn-primary" onclick="descargarVCard()">⬇️ Guardar</button>
-                        <button class="btn btn-secondary" onclick="compartir()">📤 Compartir</button>
+                        <button class="btn btn-primary" onclick="descargarVCard()">&#x2B07;&#xFE0F; Guardar</button>
+                        <button class="btn btn-secondary" onclick="compartir()">&#x1F4E4; Compartir</button>
                     </div>
                     <div class="card-footer">
-                        <span>© 2024</span>
-                        <span id="empresa-footer">Empresa</span>
+                        <span>&copy; 2025</span>
+                        <span id="empresa-footer"></span>
                     </div>
                 </div>
             </div>
@@ -103,67 +147,112 @@
     </div>
 
     <script>
-        let datos = {};
-
-        // Cargar datos desde JSON
-        async function cargarDatos() {
-            try {
-                const response = await fetch('datos.json');
-                if (!response.ok) throw new Error('No se encontró datos.json');
-                datos = await response.json();
-                
-                // Validar que los datos tengan lo mínimo
-                if (!datos.nombre || !datos.email || !datos.telefonoCompleto) {
-                    throw new Error('Faltan datos esenciales en datos.json');
-                }
-                
-                mostrarTarjeta();
-                generarQR();
-            } catch (error) {
-                console.error('Error cargando datos:', error);
-                document.getElementById('loading').innerHTML = `
-                    <div class="error">
-                        ❌ Error: No se encontró o cargar datos.json<br>
-                        <small>Asegúrate de que datos.json está en la misma carpeta</small>
-                    </div>
-                `;
-            }
+        function hexToRgb(hex) {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `${r}, ${g}, ${b}`;
         }
 
-        // Mostrar datos en la tarjeta
+        function lightenHex(hex, factor) {
+            let r = parseInt(hex.slice(1, 3), 16);
+            let g = parseInt(hex.slice(3, 5), 16);
+            let b = parseInt(hex.slice(5, 7), 16);
+            r = Math.min(255, Math.round(r + (255 - r) * factor));
+            g = Math.min(255, Math.round(g + (255 - g) * factor));
+            b = Math.min(255, Math.round(b + (255 - b) * factor));
+            return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+        }
+
+        function darkenHex(hex, factor) {
+            let r = parseInt(hex.slice(1, 3), 16);
+            let g = parseInt(hex.slice(3, 5), 16);
+            let b = parseInt(hex.slice(5, 7), 16);
+            r = Math.max(0, Math.round(r * (1 - factor)));
+            g = Math.max(0, Math.round(g * (1 - factor)));
+            b = Math.max(0, Math.round(b * (1 - factor)));
+            return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+        }
+
+        function aplicarColores() {
+            const d = (typeof datos !== 'undefined' && datos.diseno) ? datos.diseno : {};
+            const principal = d.colorPrincipal || '#d4af37';
+            const fondo = d.colorFondo || '#1a1a1a';
+            const acento = d.colorAcento || '#764ba2';
+            const root = document.documentElement;
+            root.style.setProperty('--color-principal', principal);
+            root.style.setProperty('--color-principal-claro', lightenHex(principal, 0.25));
+            root.style.setProperty('--color-fondo', fondo);
+            root.style.setProperty('--color-fondo-claro', lightenHex(fondo, 0.4));
+            root.style.setProperty('--color-fondo-oscuro', darkenHex(fondo, 0.35));
+            root.style.setProperty('--color-acento', acento);
+            root.style.setProperty('--principal-rgb', hexToRgb(principal));
+            root.style.setProperty('--fondo-rgb', hexToRgb(fondo));
+        }
+
+        function crearDetalleItem(label, valor, href) {
+            const div = document.createElement('div');
+            div.className = 'detail-item';
+            const labelDiv = document.createElement('div');
+            labelDiv.className = 'detail-label';
+            labelDiv.textContent = label;
+            const valueDiv = document.createElement('div');
+            valueDiv.className = 'detail-value';
+            if (href) {
+                const a = document.createElement('a');
+                a.href = href;
+                a.textContent = valor;
+                if (href.startsWith('http')) a.target = '_blank';
+                valueDiv.appendChild(a);
+            } else {
+                valueDiv.textContent = valor;
+            }
+            div.appendChild(labelDiv);
+            div.appendChild(valueDiv);
+            return div;
+        }
+
         function mostrarTarjeta() {
             document.getElementById('loading').style.display = 'none';
             document.getElementById('card').style.display = 'block';
 
-            // Encabezado
-            const siglas = datos.nombre.split(' ').map(p => p[0]).join('').substring(0, 2).toUpperCase();
+            aplicarColores();
+
+            const siglas = datos.nombre
+                ? datos.nombre.split(' ').map(p => p[0]).join('').substring(0, 2).toUpperCase()
+                : '??';
             document.getElementById('empresa-siglas').textContent = siglas;
-            document.getElementById('empresa-nombre').textContent = datos.empresa || 'Empresa';
+            document.getElementById('empresa-nombre').textContent = datos.empresa || '';
 
-            // Información principal
-            document.getElementById('nombre-display').textContent = datos.nombre;
-            document.getElementById('puesto-display').textContent = datos.puesto || 'Profesional';
+            document.getElementById('nombre-display').textContent = datos.nombre || 'Sin nombre';
+            document.getElementById('puesto-display').textContent = datos.puesto || '';
             document.getElementById('empresa-display').textContent = datos.empresa || '';
+            document.getElementById('empresa-footer').textContent = datos.empresa || '';
 
-            // Enlaces
-            document.getElementById('tel-link').href = `tel:${datos.telefonoCompleto}`;
-            document.getElementById('tel-link').textContent = datos.telefonoMostrado || datos.telefonoCompleto;
+            const detalles = document.getElementById('card-details');
+            detalles.innerHTML = '';
 
-            document.getElementById('email-link').href = `mailto:${datos.email}`;
-            const emailMostrado = datos.email.substring(0, 10) + '...';
-            document.getElementById('email-link').textContent = emailMostrado;
-
+            if (datos.telefonoCompleto) {
+                detalles.appendChild(crearDetalleItem(
+                    'Teléfono',
+                    datos.telefonoMostrado || datos.telefonoCompleto,
+                    `tel:${datos.telefonoCompleto}`
+                ));
+            }
+            if (datos.email) {
+                const emailCorto = datos.email.length > 18 ? datos.email.substring(0, 15) + '...' : datos.email;
+                detalles.appendChild(crearDetalleItem('Email', emailCorto, `mailto:${datos.email}`));
+            }
             if (datos.web) {
-                document.getElementById('web-link').href = datos.web;
-                document.getElementById('web-link').textContent = datos.web.replace('https://', '').substring(0, 15);
+                const webCorta = datos.web.replace(/^https?:\/\//, '').substring(0, 18);
+                detalles.appendChild(crearDetalleItem('Web', webCorta, datos.web));
+            }
+            if (datos.ubicacion) {
+                detalles.appendChild(crearDetalleItem('Ubicación', datos.ubicacion));
             }
 
-            document.getElementById('ubicacion-display').textContent = datos.ubicacion || 'Ubicación';
-
-            // Redes sociales
             const socialContainer = document.getElementById('social-icons');
             socialContainer.innerHTML = '';
-            
             if (datos.redes) {
                 if (datos.redes.linkedin) {
                     const a = document.createElement('a');
@@ -179,7 +268,7 @@
                     a.href = datos.redes.github;
                     a.target = '_blank';
                     a.className = 'social-icon';
-                    a.textContent = '⚙️';
+                    a.innerHTML = '&#x2699;&#xFE0F;';
                     a.title = 'GitHub';
                     socialContainer.appendChild(a);
                 }
@@ -188,80 +277,99 @@
                     a.href = `https://instagram.com/${datos.redes.instagram.replace('@', '')}`;
                     a.target = '_blank';
                     a.className = 'social-icon';
-                    a.textContent = '📷';
+                    a.innerHTML = '&#x1F4F7;';
                     a.title = 'Instagram';
                     socialContainer.appendChild(a);
                 }
+                if (datos.redes.twitter || datos.redes.x) {
+                    const a = document.createElement('a');
+                    const handle = (datos.redes.twitter || datos.redes.x).replace('@', '');
+                    a.href = `https://x.com/${handle}`;
+                    a.target = '_blank';
+                    a.className = 'social-icon';
+                    a.textContent = 'X';
+                    a.title = 'X / Twitter';
+                    socialContainer.appendChild(a);
+                }
             }
-
-            document.getElementById('empresa-footer').textContent = datos.empresa || 'Empresa';
         }
 
-        // Generar vCard
         function generarVCard() {
             const redes = datos.redes || {};
-            return `BEGIN:VCARD
-VERSION:3.0
-FN:${datos.nombre}
-N:${datos.nombre.split(' ').slice(-1)[0]};${datos.nombre.split(' ')[0]};;;
-TEL;TYPE=CELL:${datos.telefonoCompleto}
-EMAIL;TYPE=INTERNET:${datos.email}
-ORG:${datos.empresa || ''}
-URL;TYPE=WORK:${datos.web || ''}
-${redes.linkedin ? `URL;TYPE=PROFILE:${redes.linkedin}` : ''}
-${redes.github ? `URL;TYPE=PROFILE:${redes.github}` : ''}
-NOTE:${datos.descripcion || 'Profesional'}
-REV:${new Date().toISOString().split('T')[0]}
-END:VCARD`;
+            const apellido = datos.nombre ? datos.nombre.split(' ').slice(-1)[0] : '';
+            const primero = datos.nombre ? datos.nombre.split(' ')[0] : '';
+            let vcard = `BEGIN:VCARD\r\nVERSION:3.0\r\nFN:${datos.nombre || ''}\r\nN:${apellido};${primero};;;\r\n`;
+            if (datos.telefonoCompleto) vcard += `TEL;TYPE=CELL:${datos.telefonoCompleto}\r\n`;
+            if (datos.email) vcard += `EMAIL;TYPE=INTERNET:${datos.email}\r\n`;
+            if (datos.empresa) vcard += `ORG:${datos.empresa}\r\n`;
+            if (datos.puesto) vcard += `TITLE:${datos.puesto}\r\n`;
+            if (datos.web) vcard += `URL;TYPE=WORK:${datos.web}\r\n`;
+            if (redes.linkedin) vcard += `URL;TYPE=PROFILE:${redes.linkedin}\r\n`;
+            if (redes.github) vcard += `URL;TYPE=PROFILE:${redes.github}\r\n`;
+            if (datos.descripcion) vcard += `NOTE:${datos.descripcion}\r\n`;
+            vcard += `REV:${new Date().toISOString().split('T')[0]}\r\nEND:VCARD`;
+            return vcard;
         }
 
-        // Generar QR
         function generarQR() {
             const vcard = generarVCard();
             const url = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(vcard)}`;
-            
             const img = document.createElement('img');
             img.src = url;
             img.alt = 'QR Code';
             img.style.width = '100%';
             img.style.height = 'auto';
-            
             const container = document.getElementById('qr-image');
             container.innerHTML = '';
             container.appendChild(img);
         }
 
-        // Descargar vCard
         function descargarVCard() {
             const vcard = generarVCard();
             const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `${datos.nombre.replace(/\s/g, '_')}.vcf`;
+            link.download = `${(datos.nombre || 'contacto').replace(/\s/g, '_')}.vcf`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
         }
 
-        // Compartir
         function compartir() {
             if (navigator.share) {
                 navigator.share({
-                    title: datos.nombre,
-                    text: `${datos.puesto} - ${datos.empresa}`,
+                    title: datos.nombre || 'Tarjeta de contacto',
+                    text: [datos.puesto, datos.empresa].filter(Boolean).join(' - '),
                     url: window.location.href
-                }).catch(err => console.log('Error:', err));
+                }).catch(() => {});
             } else {
                 navigator.clipboard.writeText(window.location.href).then(() => {
-                    alert('✓ Enlace copiado');
+                    alert('Enlace copiado');
                 });
             }
         }
 
-        // Inicializar
-        window.addEventListener('load', cargarDatos);
+        window.addEventListener('load', function () {
+            if (typeof datos === 'undefined') {
+                document.getElementById('loading').innerHTML = `
+                    <div class="error">
+                        Error: no se encontr&oacute; <code>datos.js</code><br>
+                        <small>Aseg&uacute;rate de que <code>datos.js</code> est&aacute; en la misma carpeta que <code>index.html</code></small>
+                    </div>`;
+                return;
+            }
+            if (!datos.nombre) {
+                document.getElementById('loading').innerHTML = `
+                    <div class="error">
+                        Falta el campo <code>nombre</code> en <code>datos.js</code>
+                    </div>`;
+                return;
+            }
+            mostrarTarjeta();
+            generarQR();
+        });
     </script>
 </body>
 </html>

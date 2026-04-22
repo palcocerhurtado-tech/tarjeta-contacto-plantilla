@@ -1,4 +1,4 @@
-{
+var datos = {
   "nombre": "Tu Nombre Completo",
   "email": "tuemail@ejemplo.com",
   "telefonoCompleto": "+34693500740",
@@ -7,20 +7,15 @@
   "puesto": "Tu Puesto/Título",
   "descripcion": "Descripción profesional breve",
   "web": "https://tudominio.com",
-  "ubicacion": "Zaragoza , España",
+  "ubicacion": "Zaragoza, España",
   "redes": {
     "linkedin": "https://linkedin.com/in/tuusuario",
     "github": "https://github.com/tuusuario",
     "instagram": "@tuusuario"
-  },
-  "empresa_datos": {
-    "nombre": "Nombre de la Empresa",
-    "email": "empresa@ejemplo.com",
-    "web": "https://empresa.com"
   },
   "diseno": {
     "colorPrincipal": "#d4af37",
     "colorFondo": "#1a1a1a",
     "colorAcento": "#764ba2"
   }
-}
+};

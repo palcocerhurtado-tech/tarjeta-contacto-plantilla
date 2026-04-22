@@ -1,21 +1,21 @@
 var datos = {
-  "nombre": "Tu Nombre Completo",
-  "email": "tuemail@ejemplo.com",
+  "nombre": "Pablo Alcocer Hurtado",
+  "email": "palcocerhurtado@gmail.com",
   "telefonoCompleto": "+34693500740",
   "telefonoMostrado": "+34 693 500 740",
-  "empresa": "Tu Empresa",
-  "puesto": "Tu Puesto/Título",
-  "descripcion": "Descripción profesional breve",
-  "web": "https://tudominio.com",
+  "empresa": "Archon consultancies",
+  "puesto": "CEO",
+  "descripcion": "CEO de Archon Consultancies ,Precision , Control , Arquitectura",
+  "web": "https://archonconsultancies.com/",
   "ubicacion": "Zaragoza, España",
   "redes": {
-    "linkedin": "https://linkedin.com/in/tuusuario",
-    "github": "https://github.com/tuusuario",
-    "instagram": "@tuusuario"
+    "linkedin": "www.linkedin.com/in/pablo-alcocer-hurtado-a0bb573b6",
+    "github": "https://github.com/palcocerhurtado-tech",
+    "instagram": "@pabloalcoceroficial33"
   },
   "diseno": {
-    "colorPrincipal": "#d4af37",
-    "colorFondo": "#1a1a1a",
-    "colorAcento": "#764ba2"
+    "colorPrincipal": "#999B9B",
+    "colorFondo": "#28282B",
+    "colorAcento": "#39FF14"
   }
 };

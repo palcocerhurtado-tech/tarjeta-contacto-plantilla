@@ -1,17 +1,17 @@
 var datos = {
-  "nombre": "",
-  "email": "",
-  "telefonoCompleto": "",
+  "nombre": "Ana María",
+  "email": "anamariaakaba@gmail.com",
+  "telefonoCompleto": "+34 641812876",
   "telefonoMostrado": "",
-  "empresa": "",
+  "empresa": "kings corner",
   "puesto": "",
   "descripcion": "",
   "web": "",
-  "ubicacion": "",
+  "ubicacion": "paseo independencia",
   "redes": {
-    "linkedin": "",
+    "linkedin": "si",
     "github": "",
-    "instagram": ""
+    "instagram": "si"
   },
   "diseno": {
     "colorPrincipal": "#999B9B",
